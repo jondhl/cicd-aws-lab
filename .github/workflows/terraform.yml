@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TF_VAR_aws_access_key_id: {{ secrets.AWS_Access_Key_ID }}
-      TF_VAR_aws_secret_access_key: {{ secrets.AWS_Secret_Access_Key }}
+      TF_VAR_aws_access_key_id: ${{ secrets.AWS_Access_Key_ID }}
+      TF_VAR_aws_secret_access_key: ${{ secrets.AWS_Secret_Access_Key }}
 
     steps:
 
