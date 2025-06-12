@@ -1,0 +1,40 @@
+name : Deploy terraform AWS infra with Terraform
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: Terraform Deployment
+    runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_aws_access_key_id: {{ secrets.AWS_Access_Key_ID }}
+      TF_VAR_aws_secret_access_key: {{ secrets.AWS_Secret_Access_Key }}
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Validate Terraform
+        run: terraform validate
+
+      - name: Plan Terraform Deployment
+        run: terraform plan
+
+      - name: Apply Terraform Deployment
+        run: terraform apply -auto-approve
